@@ -1,16 +1,43 @@
-# This is a sample Python script.
+# main.py
+from parser import evaluate_expression
+from history import HistoryManager
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def print_menu():
+    print("\nAdvanced Calculator")
+    print(" 1) Enter mathematical expression")
+    print(" 2) Show history")
+    print(" 3) Clear history")
+    print(" 4) Exit\n")
 
+def main():
+    history = HistoryManager()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    while True:
+        print_menu()
+        choice = input("Choose option: ").strip()
 
+        if choice == "4":
+            print("Goodbye.")
+            break
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+        elif choice == "2":
+            history.show()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        elif choice == "3":
+            history.clear()
+
+        elif choice == "1":
+            expr = input("Enter expression: ").strip()
+
+            try:
+                result = evaluate_expression(expr)
+                print(f"Result: {result}")
+                history.add(expr, result)
+            except Exception as e:
+                print("Error:", e)
+
+        else:
+            print("Invalid option.")
+
+if __name__ == "__main__":
+    main()
